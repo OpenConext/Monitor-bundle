@@ -1,0 +1,27 @@
+services:
+    openconext.monitor.controller.info:
+        class: OpenConext\MonitorBundle\Controller\InfoController
+        arguments:
+            - ~
+            - %kernel.environment%
+            - %kernel.debug%
+
+    openconext.monitor.controller.health:
+        class: OpenConext\MonitorBundle\Controller\HealthController
+        arguments:
+            - @openconext.monitor.health_check_chain
+
+    openconext.monitor.health_check_chain:
+        class: OpenConext\MonitorBundle\HealthCheck\HealthCheckChain
+
+    openconext.monitor.session_health_check:
+        class: OpenConext\MonitorBundle\HealthCheck\SessionHealthCheck
+        tags:
+            - { name: openconext.monitor.health_check }
+
+    openconext.monitor.database_health_check:
+        class: OpenConext\MonitorBundle\HealthCheck\DoctrineConnectionHealthCheck
+        calls:
+            - [ setEntityManager, ['@?doctrine.orm.entity_manager']]
+        tags:
+            - { name: openconext.monitor.health_check }

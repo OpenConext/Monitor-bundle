@@ -1,0 +1,11 @@
+monitor.info:
+    path: /info
+    methods: [GET]
+    defaults:
+        _controller: openconext.monitor.controller.info:infoAction
+
+monitor.health:
+    path: /health
+    methods: [GET]
+    defaults:
+        _controller: openconext.monitor.controller.health:healthAction
