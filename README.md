@@ -49,7 +49,7 @@ When a health check failed the HTTP Response status code will be 503. And the JS
     security:
         firewalls:
             monitor:
-                pattern: ^/info|health$
+                pattern: ^/(info|health)$
                 security: false
 
     ```
