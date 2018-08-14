@@ -26,8 +26,7 @@ use OpenConext\MonitorBundle\Value\HealthReport;
  * Test if there is a working database connection.
  *
  * This test is based on the Doctrine configuration. The default entity manager is injected (if configured) and is used
- * to perform a simple query on the configured
- * connection.
+ * to perform a simple query on the configured connection.
  */
 class DoctrineConnectionHealthCheck implements HealthCheckInterface
 {
@@ -51,11 +50,20 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
     {
         // Was the entityManager injected? When it is not the project does not use Doctrine ORM
         if (!is_null($this->entityManager)) {
-            // Try a SELECT 1 query on the database to test if it's up and running
             try {
-                $this->entityManager->getConnection()->exec('SELECT 1;');
+                // Get the schema manager and grab the first table to later query on
+                $sm = $this->entityManager->getConnection()->getSchemaManager();
+                $tables = $sm->listTables();
+                if (!empty($tables)) {
+                    $table = reset($tables);
+                    // Perform a light-weight query on the chosen table
+                    $query = 'SELECT * FROM `%s` LIMIT 1';
+                    $this->entityManager->getConnection()->exec(sprintf($query, $table->getName()));
+                }
             } catch (Exception $e) {
-                return HealthReport::buildStatusDown('Unable to execute a query on the database');
+                // On error close the connection to prevent sleeping processes
+                $this->entityManager->getConnection()->close();
+                return HealthReport::buildStatusDown('Unable to execute a query on the database.');
             }
         }
         return $report;
