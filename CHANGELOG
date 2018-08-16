@@ -1,8 +1,8 @@
-
 VERSION 1  RELEASE OF A NEW VERSION
 ===================================
 
    Version 1.0.0 - Release of a new version
+      16/08/2018 15:06  1.0.3  Improved DoctrineConnectionHealthCheck
       18/12/2017 16:17  1.0.2  Updated README.md
       11/12/2017 11:16  1.0.1  Symfony 3 support
       07/12/2017 14:41  1.0.0  initial release
