@@ -115,3 +115,22 @@ services:
         tags:
             - { name: surfnet.monitor.health_check }
 ```
+
+## Overriding a default HealthCheck
+To run a custom query with the DoctrineConnectionHealthCheck you will need to override it in your own project.
+
+For example in your ACME bunde that is using the monitor bundle:
+
+`services.yml`
+```yaml
+    # Override the service, service names can be found in `/src/Resources/config/services.yml`
+    openconext.monitor.database_health_check:
+        # Point to your own implementation of the check
+        class: Acme\GreatSuccessBundle\HealthCheck\DoctrineConnectionHealthCheck
+        # Do not forget to apply the correct tag
+        tags:
+        - { name: openconext.monitor.health_check }
+
+```
+
+The rest of the service configuration is up to your own needs. You can inject arguments, factory calls and other service features as need be.
