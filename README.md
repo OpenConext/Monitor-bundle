@@ -134,3 +134,6 @@ For example in your ACME bunde that is using the monitor bundle:
 ```
 
 The rest of the service configuration is up to your own needs. You can inject arguments, factory calls and other service features as need be.
+
+## Release strategy
+Please read: https://github.com/OpenConext/Stepup-Deploy/wiki/Release-Management fro more information on the release strategy used in Stepup projects.
