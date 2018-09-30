@@ -21,7 +21,7 @@ namespace OpenConext\MonitorBundle\HealthCheck;
 /**
  * Contract for a HealthReport.
  *
- * A HealthReport has a status (UP/DOWN) with a corresponding HTTP status code (200/503). Health repors with a DOWN
+ * A HealthReport has a status (UP/DOWN) with a corresponding HTTP status code (200/503). Health reports with a DOWN
  * status can be enriched with a message.
  */
 interface HealthReportInterface
