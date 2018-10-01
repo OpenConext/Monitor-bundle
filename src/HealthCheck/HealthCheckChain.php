@@ -41,7 +41,7 @@ class HealthCheckChain
     }
 
     /**
-     * Checks all registered HealCheckers and stops on the first encounter of a failing test.
+     * Checks all registered HealthCheckers and stops on the first encounter of a failing test.
      *
      * @return HealthReportInterface
      */
