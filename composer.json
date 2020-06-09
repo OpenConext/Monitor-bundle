@@ -1,14 +1,14 @@
 {
   "name": "openconext/monitor-bundle",
   "type": "symfony-bundle",
-  "description": "A Symfony 3 bundle that facilitates health and info endpoints to a Symfony application. The bundle is backwards compatible with Symfony 2 projects.",
+  "description": "A Symfony 4 bundle that facilitates health and info endpoints to a Symfony application. The bundle is backwards compatible with Symfony 2 projects.",
   "keywords": ["SURFnet", "StepUp", "OpenConext", "monitoring", "health"],
   "license": "Apache-2.0",
   "minimum-stability": "stable",
   "require": {
     "php": ">=5.4,<8.0-dev",
-    "symfony/dependency-injection": ">=2.7,<4",
-    "symfony/framework-bundle": ">=2.7,<4",
+    "symfony/dependency-injection": ">=3.4,<5",
+    "symfony/framework-bundle": ">=3.4,<5",
     "webmozart/assert": "^1.2"
   },
   "require-dev": {
