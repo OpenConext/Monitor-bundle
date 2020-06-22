@@ -77,7 +77,9 @@ class HealthReport implements HealthReportInterface, JsonSerializable
 
     public function jsonSerialize()
     {
-        $report['status'] = $this->status;
+        $report = [
+            'status' => $this->status
+        ];
         if (trim($this->message) !== '') {
             $report['message'] = $this->message;
         }
