@@ -29,7 +29,6 @@ class HealthCheckPass implements CompilerPassInterface
 {
     /**
      * @SuppressWarnings(PHPMD.UnusedLocalVariable) $tags is never used in the foreach
-     * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {
