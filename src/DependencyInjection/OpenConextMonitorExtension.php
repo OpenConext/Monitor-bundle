@@ -31,6 +31,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class OpenConextMonitorExtension extends Extension
 {
+    /**
+     * @throws \Exception
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
@@ -41,10 +44,10 @@ class OpenConextMonitorExtension extends Extension
 
     private function setInfoControllerArguments(ContainerBuilder $container)
     {
-        // The buildPath is the installation directory of the project. And is derived from the kernel.root_dir
+        // The buildPath is the installation directory of the project. And is derived from the kernel.project_dir
         // (which is the app folder).
-        $rootDir = $container->getParameter('kernel.root_dir');
-        $buildPath = basename(realpath($rootDir . '/../'));
+        $rootDir = $container->getParameter('kernel.project_dir');
+        $buildPath = basename(realpath($rootDir));
 
         $container
             ->getDefinition('openconext.monitor.controller.info')
