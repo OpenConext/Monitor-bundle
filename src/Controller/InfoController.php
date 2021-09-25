@@ -20,7 +20,9 @@ namespace OpenConext\MonitorBundle\Controller;
 
 use OpenConext\MonitorBundle\Value\BuildPathFactory;
 use OpenConext\MonitorBundle\Value\Information;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Display specific information about the application.
@@ -37,7 +39,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  *
  * This data is returned in JSON format.
  */
-class InfoController
+class InfoController extends AbstractController
 {
     /**
      * @var string
@@ -64,7 +66,7 @@ class InfoController
         $this->debuggerEnabled = $debuggerEnabled;
     }
 
-    public function infoAction()
+    public function infoAction(): JsonResponse
     {
         $info = Information::buildFrom(
             BuildPathFactory::buildFrom($this->buildPath),
@@ -72,6 +74,6 @@ class InfoController
             $this->debuggerEnabled
         );
 
-        return JsonResponse::create($info);
+        return $this->json($info);
     }
 }

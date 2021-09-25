@@ -1,7 +1,7 @@
 # OpenConext Monitor bundle
 [![Build Status](https://travis-ci.org/OpenConext/Monitor-bundle.svg)](https://travis-ci.org/OpenConext/Monitor-bundle) 
 
-A Symfony2 bundle that adds a /health and /info endpoint to your application.
+A Symfony 3/4/5 bundle that adds a /health and /info endpoint to your application.
 
 The endpoints return JSON responses. The `/info` endpoint tries to give as much information about the currently installed 
 version of the application as possible. This information is based on the build path of the installation. But also
@@ -82,11 +82,7 @@ class ApiHealthCheck implements HealthCheckInterface
         $this->testService = $service;
     }
 
-    /**
-     * @param HealthReportInterface $report
-     * @return HealthReportInterface
-     */
-    public function check(HealthReportInterface $report)
+    public function check(HealthReportInterface $report): HealthReportInterface
     {
         if (!$this->testService->everythingOk()) {
             // Return a HealthReport with a DOWN status when there are indications the application is not functioning as
@@ -136,4 +132,4 @@ For example in your ACME bunde that is using the monitor bundle:
 The rest of the service configuration is up to your own needs. You can inject arguments, factory calls and other service features as need be.
 
 ## Release strategy
-Please read: https://github.com/OpenConext/Stepup-Deploy/wiki/Release-Management fro more information on the release strategy used in Stepup projects.
+Please read: https://github.com/OpenConext/Stepup-Deploy/wiki/Release-Management for more information on the release strategy used in Stepup projects.

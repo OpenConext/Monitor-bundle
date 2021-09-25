@@ -1,2 +1,8 @@
-/vendor/
-/cache.properties
+vendor/
+composer.lock
+.php_cs.cache
+.phpcs-cache
+.phpunit.result.cache
+composer.phar
+.idea/
+_gsdata_/

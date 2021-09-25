@@ -14,12 +14,14 @@ addons:
 
 php:
   - 7.2
+  - 7.3
   - 7.4
+  - 8.0
+  - 8.1
 
 matrix:
   allow_failures:
-    - php: 7.0
-    - php: 7.4
+    - php: 8.1
 
 env:
   global:

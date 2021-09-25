@@ -23,9 +23,5 @@ namespace OpenConext\MonitorBundle\HealthCheck;
  */
 interface HealthCheckInterface
 {
-    /**
-     * @param HealthReportInterface $report
-     * @return HealthReportInterface
-     */
-    public function check(HealthReportInterface $report);
+    public function check(HealthReportInterface $report): HealthReportInterface;
 }

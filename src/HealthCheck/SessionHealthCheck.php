@@ -29,10 +29,7 @@ use OpenConext\MonitorBundle\Value\HealthReport;
  */
 class SessionHealthCheck implements HealthCheckInterface
 {
-    /**
-     * @return HealthReportInterface
-     */
-    public function check(HealthReportInterface $report)
+    public function check(HealthReportInterface $report): HealthReportInterface
     {
         if (!function_exists('session_start')) {
             return HealthReport::buildStatusDown(

@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.0.1
+Symfony 5 an 6 support. Bump PHP to >= 7.2
+
 ## 1.0.5
 Take two of improving the DoctrineConnectionHealthCheck
 
