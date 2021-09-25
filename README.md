@@ -37,6 +37,7 @@ When a health check failed the HTTP Response status code will be 503. And the JS
         new OpenConext\MonitorBundle\OpenConextMonitorBundle(),
     }
     ```
+   
  * Include the routing configuration in `app/config/routing.yml` by adding:
     ```yaml
     openconext_monitor:
