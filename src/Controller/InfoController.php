@@ -66,7 +66,7 @@ class InfoController extends AbstractController
         $this->debuggerEnabled = $debuggerEnabled;
     }
 
-    public function infoAction(): JsonResponse
+    public function __invoke(): JsonResponse
     {
         $info = Information::buildFrom(
             BuildPathFactory::buildFrom($this->buildPath),

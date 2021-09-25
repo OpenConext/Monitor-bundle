@@ -29,23 +29,25 @@ When a health check failed the HTTP Response status code will be 503. And the JS
     composer require openconext/monitor-bundle
     ```
 
- * Add the bundle to your kernel in `app/AppKernel.php`
+ * If you don't use [Symfony Flex](https://symfony.com/doc/current/setup/flex.html), you must enable the bundle manually in the application:
+
     ```php
-    public function registerBundles()
-    {
-        // ...
-        new OpenConext\MonitorBundle\OpenConextMonitorBundle(),
-    }
-    ```
+    // config/bundles.php
+    // in older Symfony apps, enable the bundle in app/AppKernel.php
+    return [
+    // ...
+     OpenConext\MonitorBundle\OpenConextMonitorBundle::class => ['all' => true],
+    ];
+     ```
    
- * Include the routing configuration in `app/config/routing.yml` by adding:
+ * Include the routing configuration in `config/routes.yml` by adding:
     ```yaml
-    openconext_monitor:
+    open_conext_monitor:
         resource:   "@OpenConextMonitorBundle/Resources/config/routing.yml"
         prefix:     /
      ```
  
- * Add security exceptions in `app/config/security.yml` (if this is required at all)
+ * Add security exceptions in `config/security.yml` (if this is required at all)
     ```yaml
     security:
         firewalls:

@@ -40,7 +40,7 @@ class HealthController extends AbstractController
         $this->healthChecker = $healthChecker;
     }
 
-    public function healthAction(): JsonResponse
+    public function __invoke(): JsonResponse
     {
         $statusResponse = $this->healthChecker->check();
         
