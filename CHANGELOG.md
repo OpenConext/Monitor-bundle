@@ -1,10 +1,13 @@
 # Changelog
 
-## 2.0.1
+## 3.0.0
 Add support for Symfony 5 and 6. Bump PHP to >= 7.2
 
-## 2.00
-SF4 and PHP 7.2 support
+## 2.1.0
+Add opcache information to the info endpoint when available #7
+
+## 2.0.0
+Added Symfony 4 support
 
 ## 1.0.5
 Take two of improving the DoctrineConnectionHealthCheck
