@@ -40,11 +40,13 @@ class Information implements JsonSerializable
      * @var bool
      */
     private $debuggerEnabled;
+  
     /**
      * @var array
      */
     private $systemInfo;
-
+    
+  
     public static function buildFrom(BuildPath $buildPath, string $environment, bool $debuggerEnabled, array $systemInfo): Information
     {
         Assert::stringNotEmpty($environment, 'Environment must have a non empty string value');
@@ -60,6 +62,7 @@ class Information implements JsonSerializable
         $this->debuggerEnabled = $debuggerEnabled;
         $this->systemInfo = $systemInfo;
     }
+    
 
     public function jsonSerialize(): array
     {
@@ -67,6 +70,7 @@ class Information implements JsonSerializable
             'build' => $this->buildPath->getPath(),
             'env' => $this->environment,
             'debug' => $this->debuggerEnabled,
+            'system' => $this->systemInfo,
         ];
 
         if ($this->buildPath->hasRevision()) {
