@@ -1,5 +1,4 @@
 # OpenConext Monitor bundle
-[![Build Status](https://travis-ci.org/OpenConext/Monitor-bundle.svg)](https://travis-ci.org/OpenConext/Monitor-bundle) 
 
 A Symfony 3/4/5 bundle that adds a /health and /info endpoint to your application.
 
@@ -47,7 +46,7 @@ When a health check failed the HTTP Response status code will be 503. And the JS
         prefix:     /
      ```
  
- * Add security exceptions in `config/security.yml` (if this is required at all)
+ * Add security exceptions in `config/packages/security.yml` (if this is required at all)
     ```yaml
     security:
         firewalls:
