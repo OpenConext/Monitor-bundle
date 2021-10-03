@@ -56,6 +56,11 @@ class InfoController extends AbstractController
      */
     private $debuggerEnabled;
 
+    /**
+     * @var array
+     */
+    private $systemInfo = [];
+
     public function __construct(
         $buildPath,
         $environment,
@@ -64,6 +69,10 @@ class InfoController extends AbstractController
         $this->buildPath = $buildPath;
         $this->environment = $environment;
         $this->debuggerEnabled = $debuggerEnabled;
+
+        if (function_exists('opcache_get_status')) {
+            $this->systemInfo['opcache'] = opcache_get_status(false);
+        }
     }
 
     public function __invoke(): JsonResponse
@@ -71,7 +80,8 @@ class InfoController extends AbstractController
         $info = Information::buildFrom(
             BuildPathFactory::buildFrom($this->buildPath),
             $this->environment,
-            $this->debuggerEnabled
+            $this->debuggerEnabled,
+            $this->systemInfo
         );
 
         return $this->json($info);
