@@ -1,5 +1,7 @@
 # OpenConext Monitor bundle
 
+[![Code_Checks](https://github.com/OpenConext/Monitor-bundle/actions/workflows/code_checks.yaml/badge.svg)](https://github.com/OpenConext/Monitor-bundle/actions/workflows/code_checks.yaml)
+
 A Symfony 3/4/5 bundle that adds a /health and /info endpoint to your application.
 
 The endpoints return JSON responses. The `/info` endpoint tries to give as much information about the currently installed 
