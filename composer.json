@@ -35,16 +35,17 @@
     }
   },
   "scripts": {
+    "tests": {
       "docheader": "vendor/bin/docheader check src/",
       "phpcmd": "vendor/bin/phpmd src xml phpmd.xml --exclude=*/Tests/*",
       "phpcs": "vendor/bin/phpcs src --report=full --standard=phpcs.xml --extensions=php --warning-severity=0",
       "phpcpd": "vendor/bin/phpcpd src --exclude=src/Tests/*",
-      "phpunit": "vendor/bin/phpunit --coverage-text",
+      "phpunit": "vendor/bin/phpunit --coverage-text"
+      },
       "post-update-cmd": [
-        "@docheader", "@phpcmd", "@phpcs", "@phpcpd", "@phpunit"
+        "@tests"
     ]
   },
-
   "config": {
     "preferred-install": {
       "*": "dist"
