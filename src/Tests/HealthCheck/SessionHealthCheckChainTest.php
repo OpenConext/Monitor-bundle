@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace OpenConext\MonitorBundle\Tests\Value;
+namespace OpenConext\MonitorBundle\Tests\HealthCheck;
 
 use Mockery as m;
 use OpenConext\MonitorBundle\HealthCheck\HealthCheckChain;
@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
 
 class SessionHealthCheckChainTest extends TestCase
 {
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
         parent::tearDown();

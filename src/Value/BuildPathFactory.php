@@ -38,11 +38,7 @@ class BuildPathFactory
      */
     private static $revisionRegex = '/\b([a-f0-9]{40})\b/';
 
-    /**
-     * @param string $path
-     * @return BuildPath
-     */
-    public static function buildFrom($path)
+    public static function buildFrom(string $path): BuildPath
     {
         $version = '';
         $revision = '';
@@ -58,7 +54,7 @@ class BuildPathFactory
         return new BuildPath($path, $version, $revision);
     }
 
-    private static function pathHasSemVer($path)
+    private static function pathHasSemVer($path): bool
     {
         return preg_match(self::$semverRegex, $path) !== 0;
     }
@@ -76,7 +72,7 @@ class BuildPathFactory
         return array_shift($matches);
     }
 
-    private static function pathHasRevisionNumber($path)
+    private static function pathHasRevisionNumber($path): bool
     {
         return preg_match(self::$revisionRegex, $path) !== 0;
     }

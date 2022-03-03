@@ -42,10 +42,8 @@ class HealthCheckChain
 
     /**
      * Checks all registered HealthCheckers and stops on the first encounter of a failing test.
-     *
-     * @return HealthReportInterface
      */
-    public function check()
+    public function check(): HealthReportInterface
     {
         $report = HealthReport::buildStatusUp();
         if (!empty($this->checks)) {

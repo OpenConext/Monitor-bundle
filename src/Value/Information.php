@@ -40,19 +40,14 @@ class Information implements JsonSerializable
      * @var bool
      */
     private $debuggerEnabled;
-
+  
     /**
      * @var array
      */
     private $systemInfo;
-
-    /**
-     * @param BuildPath $buildPath
-     * @param $environment
-     * @param $debuggerEnabled
-     * @return Information
-     */
-    public static function buildFrom(BuildPath $buildPath, $environment, $debuggerEnabled, array $systemInfo)
+    
+  
+    public static function buildFrom(BuildPath $buildPath, string $environment, bool $debuggerEnabled, array $systemInfo): Information
     {
         Assert::stringNotEmpty($environment, 'Environment must have a non empty string value');
         Assert::boolean($debuggerEnabled, 'Debugger enabled must have a boolean value');
@@ -60,20 +55,16 @@ class Information implements JsonSerializable
         return new self($buildPath, $environment, $debuggerEnabled, $systemInfo);
     }
 
-    /**
-     * @param BuildPath $buildPath
-     * @param string $environment
-     * @param bool $debuggerEnabled
-     */
-    public function __construct(BuildPath $buildPath, $environment, $debuggerEnabled, array $systemInfo)
+    public function __construct(BuildPath $buildPath, string $environment, bool $debuggerEnabled, array $systemInfo)
     {
         $this->buildPath = $buildPath;
         $this->environment = $environment;
         $this->debuggerEnabled = $debuggerEnabled;
         $this->systemInfo = $systemInfo;
     }
+    
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $information = [
             'build' => $this->buildPath->getPath(),

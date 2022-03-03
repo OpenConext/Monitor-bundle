@@ -41,41 +41,34 @@ class HealthReport implements HealthReportInterface, JsonSerializable
      */
     private $message = '';
 
-    public static function buildStatusUp()
+    public static function buildStatusUp(): HealthReportInterface
     {
         return new self(HealthReportInterface::STATUS_UP, HealthReportInterface::STATUS_CODE_UP);
     }
 
-    public static function buildStatusDown($message = '')
+    public static function buildStatusDown($message = ''): HealthReportInterface
     {
         return new self(HealthReportInterface::STATUS_DOWN, HealthReportInterface::STATUS_CODE_DOWN, $message);
     }
 
-    /**
-     * @param string $status
-     * @param string $message optional
-     */
-    private function __construct($status, $code, $message = '')
+    private function __construct(string $status, $code, string $message = '')
     {
         $this->status = $status;
         $this->code = $code;
         $this->message = $message;
     }
 
-    public function isDown()
+    public function isDown(): bool
     {
         return $this->status === HealthReportInterface::STATUS_DOWN;
     }
 
-    /**
-     * @return int
-     */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return $this->code;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $report = [
             'status' => $this->status

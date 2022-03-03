@@ -32,23 +32,11 @@ interface HealthReportInterface
     const STATUS_CODE_UP = 200;
     const STATUS_CODE_DOWN = 503;
 
-    /**
-     * @return HealthReportInterface
-     */
-    public static function buildStatusUp();
+    public static function buildStatusUp(): HealthReportInterface;
 
-    /**
-     * @return HealthReportInterface
-     */
-    public static function buildStatusDown($message = '');
+    public static function buildStatusDown($message = ''): HealthReportInterface;
 
-    /**
-     * @return bool
-     */
-    public function isDown();
+    public function isDown(): bool;
 
-    /**
-     * @return int
-     */
-    public function getStatusCode();
+    public function getStatusCode(): int;
 }

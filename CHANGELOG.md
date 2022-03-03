@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.0
+Add support for Symfony 5 and 6. Bump PHP to >= 7.2
+
 ## 2.1.0
 Add opcache information to the info endpoint when available #7
 

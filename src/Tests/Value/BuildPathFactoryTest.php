@@ -45,7 +45,7 @@ class BuildPathFactoryTest extends TestCase
         $this->assertEquals($path, $buildPath->getPath());
     }
 
-    public function semverBuildPaths()
+    public function semverBuildPaths(): array
     {
         return [
             ['Stepup-Gateway-2.2.0-20161018092553Z-bc6bbf8e2006d15cbe883d8045724cdb1166e759', '2.2.0'],
@@ -55,7 +55,7 @@ class BuildPathFactoryTest extends TestCase
         ];
     }
 
-    public function revisionBuildPaths()
+    public function revisionBuildPaths(): array
     {
         return [
             ['Stepup-Gateway-2.2.0-20161018092553Z-bc6bbf8e2006d15cbe883d8045724cdb1166e759', 'bc6bbf8'],

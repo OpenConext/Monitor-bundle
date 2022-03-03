@@ -6,14 +6,16 @@ services:
             - '%kernel.environment%'
             - '%kernel.debug%'
         public: true
-        tags: ['controller.service_arguments']
+        autowire: true
+        tags: ['controller.service_arguments', 'container.service_subscriber']
 
     openconext.monitor.controller.health:
         class: OpenConext\MonitorBundle\Controller\HealthController
         arguments:
             - '@openconext.monitor.health_check_chain'
         public: true
-        tags: ['controller.service_arguments']
+        autowire: true
+        tags: ['controller.service_arguments', 'container.service_subscriber']
 
     openconext.monitor.health_check_chain:
         class: OpenConext\MonitorBundle\HealthCheck\HealthCheckChain

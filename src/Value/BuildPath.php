@@ -69,12 +69,12 @@ class BuildPath
         return $this->revision;
     }
 
-    public function hasRevision()
+    public function hasRevision(): bool
     {
         return trim($this->revision) !== '';
     }
 
-    public function hasVersion()
+    public function hasVersion(): bool
     {
         return trim($this->version) !== '';
     }

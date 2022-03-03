@@ -43,10 +43,7 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @return HealthReportInterface
-     */
-    public function check(HealthReportInterface $report)
+    public function check(HealthReportInterface $report): HealthReportInterface
     {
         // Was the entityManager injected? When it is not the project does not use Doctrine ORM
         if (!is_null($this->entityManager)) {
@@ -58,7 +55,7 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
                     $table = reset($tables);
                     // Perform a light-weight query on the chosen table
                     $query = 'SELECT * FROM `%s` LIMIT 1';
-                    $this->entityManager->getConnection()->query(sprintf($query, $table->getName()));
+                    $this->entityManager->getConnection()->executeQuery(sprintf($query, $table->getName()));
                 }
             } catch (Exception $e) {
                 return HealthReport::buildStatusDown('Unable to execute a query on the database.');

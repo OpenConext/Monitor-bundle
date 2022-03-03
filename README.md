@@ -1,7 +1,8 @@
 # OpenConext Monitor bundle
-[![Build Status](https://travis-ci.org/OpenConext/Monitor-bundle.svg)](https://travis-ci.org/OpenConext/Monitor-bundle) 
 
-A Symfony2 bundle that adds a /health and /info endpoint to your application.
+[![Code_Checks](https://github.com/OpenConext/Monitor-bundle/actions/workflows/code_checks.yaml/badge.svg)](https://github.com/OpenConext/Monitor-bundle/actions/workflows/code_checks.yaml)
+
+A Symfony 3/4/5 bundle that adds a /health and /info endpoint to your application.
 
 The endpoints return JSON responses. The `/info` endpoint tries to give as much information about the currently installed 
 version of the application as possible. This information is based on the build path of the installation. But also
@@ -29,22 +30,25 @@ When a health check failed the HTTP Response status code will be 503. And the JS
     composer require openconext/monitor-bundle
     ```
 
- * Add the bundle to your kernel in `app/AppKernel.php`
+ * If you don't use [Symfony Flex](https://symfony.com/doc/current/setup/flex.html), you must enable the bundle manually in the application:
+
     ```php
-    public function registerBundles()
-    {
-        // ...
-        new OpenConext\MonitorBundle\OpenConextMonitorBundle(),
-    }
-    ```
- * Include the routing configuration in `app/config/routing.yml` by adding:
+    // config/bundles.php
+    // in older Symfony apps, enable the bundle in app/AppKernel.php
+    return [
+    // ...
+     OpenConext\MonitorBundle\OpenConextMonitorBundle::class => ['all' => true],
+    ];
+     ```
+   
+ * Include the routing configuration in `config/routes.yml` by adding:
     ```yaml
-    openconext_monitor:
+    open_conext_monitor:
         resource:   "@OpenConextMonitorBundle/Resources/config/routing.yml"
         prefix:     /
      ```
  
- * Add security exceptions in `app/config/security.yml` (if this is required at all)
+ * Add security exceptions in `config/packages/security.yml` (if this is required at all)
     ```yaml
     security:
         firewalls:
@@ -82,11 +86,7 @@ class ApiHealthCheck implements HealthCheckInterface
         $this->testService = $service;
     }
 
-    /**
-     * @param HealthReportInterface $report
-     * @return HealthReportInterface
-     */
-    public function check(HealthReportInterface $report)
+    public function check(HealthReportInterface $report): HealthReportInterface
     {
         if (!$this->testService->everythingOk()) {
             // Return a HealthReport with a DOWN status when there are indications the application is not functioning as
@@ -136,4 +136,4 @@ For example in your ACME bunde that is using the monitor bundle:
 The rest of the service configuration is up to your own needs. You can inject arguments, factory calls and other service features as need be.
 
 ## Release strategy
-Please read: https://github.com/OpenConext/Stepup-Deploy/wiki/Release-Management fro more information on the release strategy used in Stepup projects.
+Please read: https://github.com/OpenConext/Stepup-Deploy/wiki/Release-Management for more information on the release strategy used in Stepup projects.

@@ -19,6 +19,7 @@
 namespace OpenConext\MonitorBundle\Controller;
 
 use OpenConext\MonitorBundle\HealthCheck\HealthCheckChain;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -27,7 +28,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * The health controller is used to display the health of the application. Information is returned as a JSON response.
  * When one of the health checks (run by the HealthCheckerChain) fails, the DOWN message of that check is shown.
  */
-class HealthController
+class HealthController extends AbstractController
 {
     /**
      * @var HealthCheckChain
@@ -39,9 +40,10 @@ class HealthController
         $this->healthChecker = $healthChecker;
     }
 
-    public function healthAction()
+    public function __invoke(): JsonResponse
     {
         $statusResponse = $this->healthChecker->check();
-        return JsonResponse::create($statusResponse, $statusResponse->getStatusCode());
+        
+        return $this->json($statusResponse, $statusResponse->getStatusCode());
     }
 }
