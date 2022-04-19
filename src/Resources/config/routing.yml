@@ -1,3 +1,4 @@
+# Deprecated routes: /info and /health are moving to /internal/info and internal/health respectively.
 monitor.info:
     path: /info
     methods: [GET]
@@ -6,6 +7,18 @@ monitor.info:
 
 monitor.health:
     path: /health
+    methods: [GET]
+    defaults:
+        _controller: openconext.monitor.controller.health
+
+monitor.internal_info:
+    path: /internal/info
+    methods: [GET]
+    defaults:
+        _controller: openconext.monitor.controller.info
+
+monitor.internal_health:
+    path: /internal/health
     methods: [GET]
     defaults:
         _controller: openconext.monitor.controller.health

@@ -4,11 +4,11 @@
 
 A Symfony 3/4/5 bundle that adds a /health and /info endpoint to your application.
 
-The endpoints return JSON responses. The `/info` endpoint tries to give as much information about the currently installed 
+The endpoints return JSON responses. The `/internal/info` endpoint tries to give as much information about the currently installed 
 version of the application as possible. This information is based on the build path of the installation. But also
 includes the Symfony environment that is currently active and whether or not the debugger is enabled.
 
-The `/health` endpoint reports on the health of the application. This information could be used for example by a load
+The `/internal/health` endpoint reports on the health of the application. This information could be used for example by a load
 balancer. Example output:
 
 ```json
@@ -21,6 +21,8 @@ When a health check failed the HTTP Response status code will be 503. And the JS
 ``` 
 
 :exclamation: Please note that only the first failing health check is reported.
+
+:exclamation: As of version 3.1.0 we started exposing the `health` and `info` routes on `/internal/`. On the next major version we will stop serving the `info` and `health` enpoints on `/`
 
 
 ## Installation

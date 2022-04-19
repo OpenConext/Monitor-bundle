@@ -1,4 +1,6 @@
 # Changelog
+# 3.1.0
+Make the info and health endpoints available on both `/` and `/internal/` paths. 'Deprecating' the original /health and /info endpoints.
 
 ## 3.0.0
 Add support for Symfony 5 and 6. Bump PHP to >= 7.2
