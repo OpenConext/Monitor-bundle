@@ -9,7 +9,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        stability: [ prefer-stable ]
         include:
           - description: 'Lowest supported requirements'
             php: '7.2'
@@ -27,7 +26,7 @@ jobs:
           - php: '8.2'
             stability: prefer-stable
 
-    name: PHP ${{ matrix.php }} tests (${{ matrix.description }}) - ${{ matrix.stability }}
+    name: PHP ${{ matrix.php }} tests - ${{ matrix.stability }}
     steps:
       # basically git clone
       - uses: actions/checkout@v3
