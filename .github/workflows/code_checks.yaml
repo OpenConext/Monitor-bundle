@@ -27,7 +27,7 @@ jobs:
           - php: '8.2'
             stability: prefer-stable
 
-    name: PHP ${{ matrix.php }} - ${{ matrix.stability }} tests
+    name: PHP ${{ matrix.php }} tests (${{ matrix.description }}) - ${{ matrix.stability }}
     steps:
       # basically git clone
       - uses: actions/checkout@v3
