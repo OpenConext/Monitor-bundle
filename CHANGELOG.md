@@ -1,4 +1,8 @@
 # Changelog
+# 4.0.0
+- Drop SF4 support, Allow SF7.
+- Raise minimum PHP requirement to 8.2
+
 # 3.1.0
 Make the info and health endpoints available on both `/` and `/internal/` paths. 'Deprecating' the original /health and /info endpoints.
 
