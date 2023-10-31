@@ -1,7 +1,7 @@
 # OS: Linux; Symfony: upcoming (still unreleased) version; PHP: latest stable
 name: "Tests - Upcoming Symfony version (allowed to fail !)"
 
-on: ["push", "pull_request"]
+on: ["pull_request"]
 
 env:
   fail-fast: true
@@ -18,14 +18,14 @@ jobs:
         uses: shivammathur/setup-php@2.22.0
         with:
           coverage: none
-          php-version: '8.1'
+          php-version: '8.2'
           tools: composer:v2
           extensions: mbstring
           ini-values: date.timezone=UTC
 
       - name: 'Install project dependencies'
         env:
-          SYMFONY_REQUIRE: '6.3.x@dev'
+          SYMFONY_REQUIRE: '6.4.x@dev'
         run: |
           composer global config --no-plugins allow-plugins.symfony/flex true
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
