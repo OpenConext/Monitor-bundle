@@ -1,7 +1,7 @@
 # .github/workflows/code_coverage.yaml
 name: Code_Coverage
 
-on: ["push", "pull_request"]
+on: ["pull_request"]
 
 jobs:
   code_coverage:
@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.2
           coverage: pcov
 
       - run: composer install --no-progress
