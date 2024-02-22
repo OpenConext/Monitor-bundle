@@ -9,7 +9,7 @@
     "php": ">=8.2, <9.0-dev",
     "symfony/dependency-injection": "^5.4|^6.3|^7.0",
     "symfony/framework-bundle": "^5.4|^6.3|^7.0",
-    "doctrine/orm": "^2.9",
+    "doctrine/orm": "^2.9|^3.0",
     "webmozart/assert": "^1.10"
   },
   "require-dev": {
