@@ -30,7 +30,7 @@ class HealthCheckPass implements CompilerPassInterface
     /**
      * @SuppressWarnings(PHPMD.UnusedLocalVariable) $tags is never used in the foreach
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has('openconext.monitor.health_check_chain')) {
             return;
