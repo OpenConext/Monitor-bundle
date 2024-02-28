@@ -13,6 +13,8 @@ jobs:
           php-version: 8.2
           coverage: pcov
 
+      # Implicitly runs `composer tests` in post update cmd. So PHPCS, MD and other static analysis is executed at
+      # this point.
       - run: composer install --no-progress
 
       - run: vendor/bin/phpunit --coverage-clover build/logs/clover.xml

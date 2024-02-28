@@ -30,7 +30,7 @@ class HealthCheckPass implements CompilerPassInterface
     /**
      * @SuppressWarnings(PHPMD.UnusedLocalVariable) $tags is never used in the foreach
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has('openconext.monitor.health_check_chain')) {
             return;
@@ -38,7 +38,7 @@ class HealthCheckPass implements CompilerPassInterface
 
         $definition = $container->findDefinition('openconext.monitor.health_check_chain');
 
-        // find all service IDs with the app.mail_transport tag
+        // find all service IDs with the openconext.monitor.health_check tag
         $taggedServices = $container->findTaggedServiceIds('openconext.monitor.health_check');
 
         foreach ($taggedServices as $id => $tags) {

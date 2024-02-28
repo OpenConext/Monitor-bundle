@@ -5,7 +5,10 @@ services:
             - '~'
             - '%kernel.environment%'
             - '%kernel.debug%'
-        public: true
+            - '%env(default::string:OPENCONEXT_APP_VERSION)%'
+            - '%env(default::string:OPENCONEXT_GIT_SHA)%'
+            - '%env(default::string:OPENCONEXT_COMMIT_DATE)%'
+
         autowire: true
         tags: ['controller.service_arguments', 'container.service_subscriber']
 
@@ -13,7 +16,6 @@ services:
         class: OpenConext\MonitorBundle\Controller\HealthController
         arguments:
             - '@openconext.monitor.health_check_chain'
-        public: true
         autowire: true
         tags: ['controller.service_arguments', 'container.service_subscriber']
 

@@ -26,48 +26,31 @@ use Webmozart\Assert\Assert;
  */
 class Information implements JsonSerializable
 {
-    /**
-     * @var BuildPath
-     */
-    private $buildPath;
-
-    /**
-     * @var string
-     */
-    private $environment;
-
-    /**
-     * @var bool
-     */
-    private $debuggerEnabled;
-  
-    /**
-     * @var array
-     */
-    private $systemInfo;
-    
-  
-    public static function buildFrom(BuildPath $buildPath, string $environment, bool $debuggerEnabled, array $systemInfo): Information
-    {
+    public static function buildFrom(
+        BuildInformation $buildPath,
+        string $environment,
+        bool $debuggerEnabled,
+        array $systemInfo
+    ): Information {
         Assert::stringNotEmpty($environment, 'Environment must have a non empty string value');
         Assert::boolean($debuggerEnabled, 'Debugger enabled must have a boolean value');
 
         return new self($buildPath, $environment, $debuggerEnabled, $systemInfo);
     }
 
-    public function __construct(BuildPath $buildPath, string $environment, bool $debuggerEnabled, array $systemInfo)
-    {
-        $this->buildPath = $buildPath;
-        $this->environment = $environment;
-        $this->debuggerEnabled = $debuggerEnabled;
-        $this->systemInfo = $systemInfo;
+    public function __construct(
+        private readonly BuildInformation $buildPath,
+        private readonly string $environment,
+        private readonly bool $debuggerEnabled,
+        private readonly array $systemInfo
+    ) {
     }
     
 
     public function jsonSerialize(): array
     {
         $information = [
-            'build' => $this->buildPath->getPath(),
+            'build' => $this->buildPath->jsonSerialize(),
             'env' => $this->environment,
             'debug' => $this->debuggerEnabled,
             'system' => $this->systemInfo,

@@ -30,14 +30,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class HealthController extends AbstractController
 {
-    /**
-     * @var HealthCheckChain
-     */
-    private $healthChecker;
-
-    public function __construct(HealthCheckChain $healthChecker)
-    {
-        $this->healthChecker = $healthChecker;
+    public function __construct(
+        private readonly HealthCheckChain $healthChecker
+    ) {
     }
 
     public function __invoke(): JsonResponse
