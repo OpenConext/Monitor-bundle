@@ -2,7 +2,7 @@
 
 [![Code_Checks](https://github.com/OpenConext/Monitor-bundle/actions/workflows/code_checks.yaml/badge.svg)](https://github.com/OpenConext/Monitor-bundle/actions/workflows/code_checks.yaml)
 
-A Symfony 3/4/5 bundle that adds a /health and /info endpoint to your application.
+A Symfony 5/6/7 bundle that adds a /health and /info endpoint to your application.
 
 The endpoints return JSON responses. The `/internal/info` endpoint tries to give as much information about the currently installed 
 version of the application as possible. This information is based on the build path of the installation. But also
@@ -36,21 +36,21 @@ When a health check failed the HTTP Response status code will be 503. And the JS
 
     ```php
     // config/bundles.php
-    // in older Symfony apps, enable the bundle in app/AppKernel.php
+    // in older Symfony apps, enable the bundle in config/bundles.php
     return [
     // ...
      OpenConext\MonitorBundle\OpenConextMonitorBundle::class => ['all' => true],
     ];
      ```
    
- * Include the routing configuration in `config/routes.yml` by adding:
+ * Include the routing configuration in `config/routes.yaml` by adding:
     ```yaml
     open_conext_monitor:
         resource:   "@OpenConextMonitorBundle/Resources/config/routing.yml"
         prefix:     /
      ```
  
- * Add security exceptions in `config/packages/security.yml` (if this is required at all)
+ * Add security exceptions in `config/packages/security.yaml` (if this is required at all)
     ```yaml
     security:
         firewalls:
@@ -104,7 +104,7 @@ class ApiHealthCheck implements HealthCheckInterface
 registered health checkers. If everything was OK, just return the report that was passed to the method. 
 
 ### Register the checker
-To actually include the home made checker simply tag it as being a
+To actually include the home made checker simply tag it with 'surfnet.monitor.health_check'
 
 Example service definition in `services.yml`
 
