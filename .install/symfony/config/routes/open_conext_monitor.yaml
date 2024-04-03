@@ -1,0 +1,5 @@
+open_conext_monitor:
+  resource:   "@OpenConextMonitorBundle/Resources/config/routing.yml"
+  prefix:     /
+
+
