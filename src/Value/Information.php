@@ -33,7 +33,6 @@ class Information implements JsonSerializable
         array $systemInfo
     ): Information {
         Assert::stringNotEmpty($environment, 'Environment must have a non empty string value');
-        Assert::boolean($debuggerEnabled, 'Debugger enabled must have a boolean value');
 
         return new self($buildPath, $environment, $debuggerEnabled, $systemInfo);
     }

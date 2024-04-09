@@ -26,12 +26,12 @@ use Webmozart\Assert\Assert;
  * Represents the path the application was installed in. The folder name contains version information which can be read
  * from this value object.
  */
-class BuildPath implements BuildInformation
+readonly class BuildPath implements BuildInformation
 {
     public function __construct(
-        private readonly string $path,
-        private readonly string $version = '',
-        private readonly string $revision = ''
+        private string $path,
+        private string $version = '',
+        private string $revision = ''
     )
     {
     }
