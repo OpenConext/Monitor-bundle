@@ -2,7 +2,7 @@
 
 [![Code_Checks](https://github.com/OpenConext/Monitor-bundle/actions/workflows/code_checks.yaml/badge.svg)](https://github.com/OpenConext/Monitor-bundle/actions/workflows/code_checks.yaml)
 
-A Symfony 5/6/7 bundle that adds a /health and /info endpoint to your application.
+A Symfony 5/6/7 bundle that adds an /internal/health and /internal/info endpoint to your application.
 
 The endpoints return JSON responses. The `/internal/info` endpoint tries to give as much information about the currently installed 
 version of the application as possible. This information is based on the build path of the installation. But also
@@ -55,11 +55,11 @@ When a health check failed the HTTP Response status code will be 503. And the JS
     security:
         firewalls:
             monitor:
-                pattern: ^/(info|health)$
+                pattern: ^/internal/(info|health)$
                 security: false
 
     ```
- * The /info and /health endpoints should now be available for everybody. Applying custom access restriction is up to
+ * The /internal/info and /internal/health endpoints should now be available for everybody. Applying custom access restriction is up to
     the implementer of this bundle. 
     
 ## Adding Health Checks
