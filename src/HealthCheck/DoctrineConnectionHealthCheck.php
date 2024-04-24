@@ -18,6 +18,7 @@
 
 namespace OpenConext\MonitorBundle\HealthCheck;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use OpenConext\MonitorBundle\Value\HealthReport;
@@ -47,18 +48,12 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
     {
         // Was the entityManager injected? When it is not the project does not use Doctrine ORM
         if (!is_null($this->entityManager)) {
+            // @todo: get a custom query from the bundle configuration
+            $query = 'SELECT 1';
             try {
-                // Get the schema manager and grab the first table to later query on
-                $sm = $this->entityManager->getConnection()->getSchemaManager();
-                $tables = $sm->listTables();
-                if (!empty($tables)) {
-                    $table = reset($tables);
-                    // Perform a light-weight query on the chosen table
-                    $query = 'SELECT * FROM `%s` LIMIT 1';
-                    $this->entityManager->getConnection()->executeQuery(sprintf($query, $table->getName()));
-                }
+                $this->entityManager->getConnection()->executeQuery($query);
             } catch (Exception $e) {
-                return HealthReport::buildStatusDown('Unable to execute a query on the database.');
+                return HealthReport::buildStatusDown("Unable to execute query [$query] on the database.");
             }
         }
         return $report;
