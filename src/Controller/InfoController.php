@@ -18,6 +18,7 @@
 
 namespace OpenConext\MonitorBundle\Controller;
 
+use OpenConext\MonitorBundle\Value\BuildInformationFactory;
 use OpenConext\MonitorBundle\Value\BuildPathFactory;
 use OpenConext\MonitorBundle\Value\Information;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,34 +42,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class InfoController extends AbstractController
 {
-    /**
-     * @var string
-     */
-    private $buildPath;
-
-    /**
-     * @var string
-     */
-    private $environment;
-
-    /**
-     * @var bool
-     */
-    private $debuggerEnabled;
-
-    /**
-     * @var array
-     */
-    private $systemInfo = [];
+    private array $systemInfo = [];
 
     public function __construct(
-        $buildPath,
-        $environment,
-        $debuggerEnabled
+        private readonly string $buildPath,
+        private readonly string $environment,
+        private readonly bool $debuggerEnabled,
+        private readonly ?string $version,
+        private readonly ?string $revision,
+        private readonly ?string $commitDate,
     ) {
-        $this->buildPath = $buildPath;
-        $this->environment = $environment;
-        $this->debuggerEnabled = $debuggerEnabled;
 
         if (function_exists('opcache_get_status')) {
             $this->systemInfo['opcache'] = opcache_get_status(false);
@@ -77,8 +60,14 @@ class InfoController extends AbstractController
 
     public function __invoke(): JsonResponse
     {
+        $buildInformation = BuildInformationFactory::build(
+            $this->version,
+            $this->revision,
+            $this->commitDate,
+            $this->buildPath
+        );
         $info = Information::buildFrom(
-            BuildPathFactory::buildFrom($this->buildPath),
+            $buildInformation,
             $this->environment,
             $this->debuggerEnabled,
             $this->systemInfo

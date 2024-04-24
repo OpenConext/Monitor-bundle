@@ -15,7 +15,7 @@
   },
   "require-dev": {
     "php-parallel-lint/php-parallel-lint": "^1.3",
-    "phpmd/phpmd": "^2.6",
+    "phpmd/phpmd": "^2.13",
     "matthiasnoback/symfony-config-test": "^4.3",
     "phpdocumentor/reflection-docblock": "^5.2",
     "phpunit/php-token-stream": "^3.1.3|^4.0.4",
@@ -38,11 +38,11 @@
   "scripts": {
     "tests": {
       "docheader": "vendor/bin/docheader check src/",
-      "phpcmd": "vendor/bin/phpmd src text phpmd.xml",
       "phpcs": "vendor/bin/phpcs src --report=full --standard=phpcs.xml --extensions=php --warning-severity=0",
       "phpcpd": "vendor/bin/phpcpd src --exclude=src/Tests/*",
-      "phpunit": "vendor/bin/phpunit --coverage-text"
-      },
+      "phpunit": "vendor/bin/phpunit --coverage-text",
+      "phpmd": "vendor/bin/phpmd src text phpmd.xml --exclude 'src/Tests/*'"
+    },
       "post-update-cmd": [
         "@tests"
     ]

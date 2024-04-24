@@ -26,45 +26,27 @@ use Webmozart\Assert\Assert;
  * Represents the path the application was installed in. The folder name contains version information which can be read
  * from this value object.
  */
-class BuildPath
+readonly class BuildPath implements BuildInformation
 {
-    private $path;
-
-    private $version;
-
-    private $revision;
-
-    public function __construct($path, $version = '', $revision = '')
+    public function __construct(
+        private string $path,
+        private string $version = '',
+        private string $revision = ''
+    )
     {
-        Assert::stringNotEmpty($path, 'Path must have a non empty string value');
-        Assert::string($version, 'Version must have a string value');
-        Assert::string($revision, 'Revision must have a string value');
-
-        $this->path = $path;
-        $this->version = $version;
-        $this->revision = $revision;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRevision()
+    public function getRevision(): string
     {
         return $this->revision;
     }
@@ -77,5 +59,25 @@ class BuildPath
     public function hasVersion(): bool
     {
         return trim($this->version) !== '';
+    }
+
+    public function getCommitDate(): string
+    {
+        return '';
+    }
+
+    public function hasPath(): bool
+    {
+        return trim($this->path) !== '';
+    }
+
+    public function hasCommitDate(): bool
+    {
+        return false;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->path;
     }
 }
