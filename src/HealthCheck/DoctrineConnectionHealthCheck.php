@@ -49,7 +49,7 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
         if (!is_null($this->entityManager)) {
             try {
                 // Get the schema manager and grab the first table to later query on
-                $sm = $this->entityManager->getConnection()->getSchemaManager();
+                $sm = $this->entityManager->getConnection()->createSchemaManager();
                 $tables = $sm->listTables();
                 if (!empty($tables)) {
                     $table = reset($tables);
