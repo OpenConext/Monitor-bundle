@@ -57,10 +57,9 @@ class SessionHealthCheckChainTest extends TestCase
             ->once()
             ->andReturn($statusOk);
 
-        $chain = new HealthCheckChain();
-        $chain->addHealthCheck($checker1);
-        $chain->addHealthCheck($checker2);
-        $chain->addHealthCheck($checker3);
+        $iterator = new \ArrayIterator([$checker1, $checker2, $checker3]);
+
+        $chain = new HealthCheckChain($iterator);
 
         $result = $chain->check();
         $this->assertEquals($statusOk, $result);
@@ -93,10 +92,9 @@ class SessionHealthCheckChainTest extends TestCase
         $checker3 = m::mock(HealthCheckInterface::class);
         $checker3->shouldNotReceive('check');
 
-        $chain = new HealthCheckChain();
-        $chain->addHealthCheck($checker1);
-        $chain->addHealthCheck($checker2);
-        $chain->addHealthCheck($checker3);
+        $iterator = new \ArrayIterator([$checker1, $checker2, $checker3]);
+
+        $chain = new HealthCheckChain($iterator);
 
         $result = $chain->check();
         $this->assertEquals($statusDown, $result);
