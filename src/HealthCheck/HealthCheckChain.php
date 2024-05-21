@@ -26,25 +26,9 @@ use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
  */
 class HealthCheckChain
 {
-    /**
-     * @var HealthCheckInterface[]
-     */
-    private $checks;
-
     public function __construct(
         #[TaggedIterator('openconext.monitor.health_check')] private readonly iterable $healthChecks
-    )
-    {
-        $this->checks = [];
-
-        foreach ($healthChecks as $healthCheck) {
-            $this->addHealthCheck($healthCheck);
-        }
-    }
-
-    public function addHealthCheck(HealthCheckInterface $healthCheck)
-    {
-        $this->checks[] = $healthCheck;
+    ) {
     }
 
     /**
@@ -53,8 +37,8 @@ class HealthCheckChain
     public function check(): HealthReportInterface
     {
         $report = HealthReport::buildStatusUp();
-        if (!empty($this->checks)) {
-            foreach ($this->checks as $check) {
+        if (!empty($this->healthChecks)) {
+            foreach ($this->healthChecks as $check) {
                 $report = $check->check($report);
                 if ($report->isDown()) {
                     return $report;
