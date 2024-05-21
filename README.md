@@ -46,7 +46,7 @@ When a health check failed the HTTP Response status code will be 503. And the JS
  * Include the routing configuration in `config/routes.yaml` by adding:
     ```yaml
     open_conext_monitor:
-        resource:   "@OpenConextMonitorBundle/Resources/config/routing.yml"
+        resource:   "@OpenConextMonitorBundle/config/routing.yaml"
         prefix:     /
      ```
  
@@ -78,24 +78,18 @@ use OpenConext\MonitorBundle\Value\HealthReport;
 
 class ApiHealthCheck implements HealthCheckInterface
 {
-    /**
-     * @var MyService
-     */
-    private $testService;
-
-    public function __construct(MyService $service)
+    public function __construct(private readonly MyService $service)
     {
-        $this->testService = $service;
     }
 
     public function check(HealthReportInterface $report): HealthReportInterface
     {
-        if (!$this->testService->everythingOk()) {
+        if (!$this->service->everythingOk()) {
             // Return a HealthReport with a DOWN status when there are indications the application is not functioning as
             // intended. You can provide an optional message that is displayed alongside the DOWN status.
             return HealthReport::buildStatusDown('Not everything is allright.');
         }
-        // By default return the report that was passed along as a parameter to the check method
+        // By default, return the report that was passed along as a parameter to the check method
         return $report;
     }
 }
@@ -104,35 +98,20 @@ class ApiHealthCheck implements HealthCheckInterface
 registered health checkers. If everything was OK, just return the report that was passed to the method. 
 
 ### Register the checker
-To actually include the home made checker simply tag it with 'surfnet.monitor.health_check'
-
-Example service definition in `services.yml`
-
-```yaml
-services:
-    acme.monitor.my_custom_health_check:
-        class: Acme\AppBundle\HealthCheck\MyCustomHealthCheck
-        arguments:
-            - @test_service
-        tags:
-            - { name: surfnet.monitor.health_check }
-```
+By implementing the `HealthCheckInterface` you can register your own health check. 
+This interface is tagged with `openconext.monitor.health_check` so you don't have to do it yourself.
 
 ## Overriding a default HealthCheck
 To run a custom query with the DoctrineConnectionHealthCheck you will need to override it in your own project.
 
-For example in your ACME bunde that is using the monitor bundle:
+For example in your ACME bundle that is using the monitor bundle:
 
-`services.yml`
+`services.yaml`
 ```yaml
-    # Override the service, service names can be found in `/src/Resources/config/services.yml`
-    openconext.monitor.database_health_check:
+    # Override the service in `/src/config/services.yaml`
+    OpenConext\MonitorBundle\HealthCheck\DoctrineConnectionHealthCheck:
         # Point to your own implementation of the check
         class: Acme\GreatSuccessBundle\HealthCheck\DoctrineConnectionHealthCheck
-        # Do not forget to apply the correct tag
-        tags:
-        - { name: openconext.monitor.health_check }
-
 ```
 
 The rest of the service configuration is up to your own needs. You can inject arguments, factory calls and other service features as need be.
