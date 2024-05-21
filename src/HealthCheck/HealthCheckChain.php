@@ -27,7 +27,8 @@ use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 class HealthCheckChain
 {
     public function __construct(
-        #[TaggedIterator('openconext.monitor.health_check')] private readonly iterable $healthChecks
+        #[TaggedIterator(HealthCheckInterface::class)]
+        private readonly iterable $healthChecks
     ) {
     }
 

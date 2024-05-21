@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 /**
  * Contract for a HealthCheck.
  */
-#[AutoconfigureTag('openconext.monitor.health_check')]
+#[AutoconfigureTag()]
 interface HealthCheckInterface
 {
     public function check(HealthReportInterface $report): HealthReportInterface;
