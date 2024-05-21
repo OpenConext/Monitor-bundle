@@ -6,7 +6,7 @@ A Symfony 5/6/7 bundle that adds an /internal/health and /internal/info endpoint
 
 The endpoints return JSON responses. The `/internal/info` endpoint tries to give as much information about the currently installed 
 version of the application as possible. This information is based on the build path of the installation. But also
-includes the Symfony environment that is currently active and whether or not the debugger is enabled.
+includes the Symfony environment that is currently active and whether the debugger is enabled.
 
 The `/internal/health` endpoint reports on the health of the application. This information could be used for example by a load
 balancer. Example output:

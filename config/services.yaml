@@ -6,7 +6,3 @@ services:
     OpenConext\MonitorBundle\:
         resource: '../src/'
         exclude: '../src/{Entity,Repository,Tests,Resources,DependencyInjection,OpenConextMonitorBundle.php}'
-
-    _instanceof:
-        OpenConext\MonitorBundle\HealthCheck\HealthCheckInterface:
-            tags: ['openconext.monitor.health_check']

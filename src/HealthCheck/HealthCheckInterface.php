@@ -18,9 +18,12 @@
 
 namespace OpenConext\MonitorBundle\HealthCheck;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+
 /**
  * Contract for a HealthCheck.
  */
+#[AutoconfigureTag('openconext.monitor.health_check')]
 interface HealthCheckInterface
 {
     public function check(HealthReportInterface $report): HealthReportInterface;
