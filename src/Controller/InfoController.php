@@ -19,11 +19,10 @@
 namespace OpenConext\MonitorBundle\Controller;
 
 use OpenConext\MonitorBundle\Value\BuildInformationFactory;
-use OpenConext\MonitorBundle\Value\BuildPathFactory;
 use OpenConext\MonitorBundle\Value\Information;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Display specific information about the application.
@@ -43,15 +42,23 @@ use Symfony\Component\HttpFoundation\Response;
 class InfoController extends AbstractController
 {
     private array $systemInfo = [];
+    private readonly string $buildPath;
 
     public function __construct(
-        private readonly string $buildPath,
+        #[Autowire(param: 'kernel.project_dir')]
+        private readonly string $projectDir,
+        #[Autowire(param: 'kernel.environment')]
         private readonly string $environment,
+        #[Autowire(param: 'kernel.debug')]
         private readonly bool $debuggerEnabled,
+        #[Autowire(env: 'default::string:OPENCONEXT_APP_VERSION')]
         private readonly ?string $version,
+        #[Autowire(env: 'default::string:OPENCONEXT_GIT_SHA')]
         private readonly ?string $revision,
+        #[Autowire(env: 'default::string:OPENCONEXT_COMMIT_DATE')]
         private readonly ?string $commitDate,
     ) {
+        $this->buildPath = basename(realpath($this->projectDir));
 
         if (function_exists('opcache_get_status')) {
             $this->systemInfo['opcache'] = opcache_get_status(false);

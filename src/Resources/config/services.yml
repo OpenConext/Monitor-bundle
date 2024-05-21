@@ -1,35 +1,21 @@
 services:
-    openconext.monitor.controller.info:
-        class: OpenConext\MonitorBundle\Controller\InfoController
-        arguments:
-            - '~'
-            - '%kernel.environment%'
-            - '%kernel.debug%'
-            - '%env(default::string:OPENCONEXT_APP_VERSION)%'
-            - '%env(default::string:OPENCONEXT_GIT_SHA)%'
-            - '%env(default::string:OPENCONEXT_COMMIT_DATE)%'
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-        autowire: true
-        tags: ['controller.service_arguments', 'container.service_subscriber']
-
-    openconext.monitor.controller.health:
-        class: OpenConext\MonitorBundle\Controller\HealthController
-        arguments:
-            - '@openconext.monitor.health_check_chain'
-        autowire: true
-        tags: ['controller.service_arguments', 'container.service_subscriber']
+    OpenConext\MonitorBundle\:
+        resource: '../../'
+        exclude: '../../{Entity,Repository,Tests,Resources,DependencyInjection,OpenConextMonitorBundle.php}'
 
     openconext.monitor.health_check_chain:
         class: OpenConext\MonitorBundle\HealthCheck\HealthCheckChain
 
     openconext.monitor.session_health_check:
         class: OpenConext\MonitorBundle\HealthCheck\SessionHealthCheck
-        tags:
-            - { name: openconext.monitor.health_check }
 
-    openconext.monitor.database_health_check:
+    openconext.monitor.doctrine_health_check:
         class: OpenConext\MonitorBundle\HealthCheck\DoctrineConnectionHealthCheck
-        calls:
-            - [ setEntityManager, ['@?doctrine.orm.entity_manager']]
-        tags:
-            - { name: openconext.monitor.health_check }
+
+    _instanceof:
+        OpenConext\MonitorBundle\HealthCheck\HealthCheckInterface:
+            tags: ['openconext.monitor.health_check']

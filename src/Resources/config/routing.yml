@@ -3,22 +3,22 @@ monitor.info:
     path: /info
     methods: [GET]
     defaults:
-        _controller: openconext.monitor.controller.info
+        _controller: OpenConext\MonitorBundle\Controller\InfoController
 
 monitor.health:
     path: /health
     methods: [GET]
     defaults:
-        _controller: openconext.monitor.controller.health
+        _controller: OpenConext\MonitorBundle\Controller\HealthController
 
 monitor.internal_info:
     path: /internal/info
     methods: [GET]
     defaults:
-        _controller: openconext.monitor.controller.info
+        _controller: OpenConext\MonitorBundle\Controller\InfoController
 
 monitor.internal_health:
     path: /internal/health
     methods: [GET]
     defaults:
-        _controller: openconext.monitor.controller.health
+        _controller: OpenConext\MonitorBundle\Controller\HealthController

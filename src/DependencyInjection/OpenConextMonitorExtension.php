@@ -38,19 +38,6 @@ class OpenConextMonitorExtension extends Extension
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-
-        $this->setInfoControllerArguments($container);
     }
 
-    private function setInfoControllerArguments(ContainerBuilder $container)
-    {
-        // The buildPath is the installation directory of the project. And is derived from the kernel.project_dir
-        // (which is the app folder).
-        $rootDir = $container->getParameter('kernel.project_dir');
-        $buildPath = basename(realpath($rootDir));
-
-        $container
-            ->getDefinition('openconext.monitor.controller.info')
-            ->replaceArgument(0, $buildPath);
-    }
 }

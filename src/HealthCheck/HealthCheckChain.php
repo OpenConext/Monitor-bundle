@@ -19,6 +19,7 @@
 namespace OpenConext\MonitorBundle\HealthCheck;
 
 use OpenConext\MonitorBundle\Value\HealthReport;
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 /**
  * Collect HealthCheck instances and checks them for UP or DOWN status.
@@ -30,9 +31,15 @@ class HealthCheckChain
      */
     private $checks;
 
-    public function __construct()
+    public function __construct(
+        #[TaggedIterator('openconext.monitor.health_check')] private readonly iterable $healthChecks
+    )
     {
         $this->checks = [];
+
+        foreach ($healthChecks as $healthCheck) {
+            $this->addHealthCheck($healthCheck);
+        }
     }
 
     public function addHealthCheck(HealthCheckInterface $healthCheck)

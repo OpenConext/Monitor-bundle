@@ -7,7 +7,6 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.2, <9.0-dev",
-    "doctrine/orm": "^2.9",
     "doctrine/dbal": "^3.1",
     "endroid/installer": "^1.4",
     "symfony/dependency-injection": "^5.4|^6.3|^7.0",
