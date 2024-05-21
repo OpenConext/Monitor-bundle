@@ -4,8 +4,8 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     OpenConext\MonitorBundle\:
-        resource: '../../'
-        exclude: '../../{Entity,Repository,Tests,Resources,DependencyInjection,OpenConextMonitorBundle.php}'
+        resource: '../src/'
+        exclude: '../src/{Entity,Repository,Tests,Resources,DependencyInjection,OpenConextMonitorBundle.php}'
 
     _instanceof:
         OpenConext\MonitorBundle\HealthCheck\HealthCheckInterface:
