@@ -7,15 +7,6 @@ services:
         resource: '../../'
         exclude: '../../{Entity,Repository,Tests,Resources,DependencyInjection,OpenConextMonitorBundle.php}'
 
-    openconext.monitor.health_check_chain:
-        class: OpenConext\MonitorBundle\HealthCheck\HealthCheckChain
-
-    openconext.monitor.session_health_check:
-        class: OpenConext\MonitorBundle\HealthCheck\SessionHealthCheck
-
-    openconext.monitor.doctrine_health_check:
-        class: OpenConext\MonitorBundle\HealthCheck\DoctrineConnectionHealthCheck
-
     _instanceof:
         OpenConext\MonitorBundle\HealthCheck\HealthCheckInterface:
             tags: ['openconext.monitor.health_check']
