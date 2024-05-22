@@ -18,6 +18,7 @@
 
 namespace OpenConext\MonitorBundle\Tests\HealthCheck;
 
+use ArrayIterator;
 use Mockery as m;
 use OpenConext\MonitorBundle\HealthCheck\HealthCheckChain;
 use OpenConext\MonitorBundle\HealthCheck\HealthCheckInterface;
@@ -57,7 +58,7 @@ class SessionHealthCheckChainTest extends TestCase
             ->once()
             ->andReturn($statusOk);
 
-        $iterator = new \ArrayIterator([$checker1, $checker2, $checker3]);
+        $iterator = new ArrayIterator([$checker1, $checker2, $checker3]);
 
         $chain = new HealthCheckChain($iterator);
 
@@ -73,7 +74,7 @@ class SessionHealthCheckChainTest extends TestCase
             ->andReturn(false);
 
         $statusDown = m::mock(HealthReport::buildStatusDown('Lorem ipsum dolor sit'));
-        $statusOk
+        $statusDown
             ->shouldReceive('isDown')
             ->andReturn(true);
 
@@ -92,7 +93,7 @@ class SessionHealthCheckChainTest extends TestCase
         $checker3 = m::mock(HealthCheckInterface::class);
         $checker3->shouldNotReceive('check');
 
-        $iterator = new \ArrayIterator([$checker1, $checker2, $checker3]);
+        $iterator = new ArrayIterator([$checker1, $checker2, $checker3]);
 
         $chain = new HealthCheckChain($iterator);
 
