@@ -1,7 +1,7 @@
 {
   "name": "openconext/monitor-bundle",
   "type": "symfony-bundle",
-  "description": "A Symfony 5/6/7 bundle that facilitates health and info endpoints to a Symfony application.",
+  "description": "A Symfony 6/7 bundle that facilitates health and info endpoints to a Symfony application.",
   "keywords": ["SURFnet", "StepUp", "OpenConext", "monitoring", "health"],
   "license": "Apache-2.0",
   "minimum-stability": "stable",
