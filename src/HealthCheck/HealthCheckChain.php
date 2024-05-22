@@ -19,7 +19,7 @@
 namespace OpenConext\MonitorBundle\HealthCheck;
 
 use OpenConext\MonitorBundle\Value\HealthReport;
-use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 /**
  * Collect HealthCheck instances and checks them for UP or DOWN status.
@@ -27,7 +27,7 @@ use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 class HealthCheckChain
 {
     public function __construct(
-        #[TaggedIterator(HealthCheckInterface::class)]
+        #[AutowireIterator(HealthCheckInterface::class)]
         private readonly iterable $healthChecks
     ) {
     }
