@@ -40,7 +40,6 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
 
     public function check(HealthReportInterface $report): HealthReportInterface
     {
-        // Was the entityManager injected? When it is not the project does not use Doctrine ORM
         if (!is_null($this->connection)) {
             try {
                 // Get the schema manager and grab the first table to later query on
