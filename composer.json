@@ -29,16 +29,16 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "App\\Tests\\": "src/Tests/"
+      "App\\Tests\\": "tests/"
     }
   },
   "scripts": {
     "tests": {
-      "docheader": "vendor/bin/docheader check src/",
-      "phpcs": "vendor/bin/phpcs src --report=full --standard=phpcs.xml --extensions=php --warning-severity=0",
-      "phpcpd": "vendor/bin/phpcpd src --exclude=src/Tests/*",
+      "docheader": "vendor/bin/docheader check src/ tests/",
+      "phpcs": "vendor/bin/phpcs src tests --report=full --standard=phpcs.xml --extensions=php --warning-severity=0",
+      "phpcpd": "vendor/bin/phpcpd src",
       "phpunit": "vendor/bin/phpunit --coverage-text",
-      "phpmd": "vendor/bin/phpmd src text phpmd.xml --exclude 'src/Tests/*'"
+      "phpmd": "vendor/bin/phpmd src text phpmd.xml"
     },
       "post-update-cmd": [
         "@tests"

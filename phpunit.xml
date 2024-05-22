@@ -19,7 +19,7 @@
       <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
       <server name="SYMFONY_PHPUNIT_VERSION" value="9" />
 
-      <server name="KERNEL_CLASS" value="App\Tests\App\AppKernel"/>
+      <server name="KERNEL_CLASS" value="App\Tests\App\AppKernel"/>z
       <server name="KERNEL_DIR" value="./Tests/App"/>
       <ini name="zend.enable_gc" value="0"/>
     </php>
@@ -30,12 +30,12 @@
     </include>
     <exclude>
       <directory>.github</directory>
-      <directory>src/Tests</directory>
+      <directory>tests</directory>
     </exclude>
   </coverage>
   <testsuites>
     <testsuite name="Test Suite">
-      <directory>src/Tests</directory>
+      <directory>tests</directory>
     </testsuite>
   </testsuites>
   <listeners>

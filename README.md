@@ -99,7 +99,7 @@ registered health checkers. If everything was OK, just return the report that wa
 
 ### Register the checker
 By implementing the `HealthCheckInterface` you can register your own health check. 
-This interface is tagged with `openconext.monitor.health_check` so you don't have to do it yourself.
+This interface is tagged automatically, so you don't have to do it yourself.
 
 ## Overriding a default HealthCheck
 To run a custom query with the DoctrineConnectionHealthCheck you will need to override it in your own project.
