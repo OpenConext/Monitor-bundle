@@ -50,6 +50,7 @@ When a health check failed the HTTP Response status code will be 503. And the JS
         type: attribute
         prefix: /
      ```
+_Note: this is currently done by the bundle itself, with an external dependency called https://github.com/endroid/installer_
  
  * Add security exceptions in `config/packages/security.yaml` (if this is required at all)
     ```yaml
