@@ -23,6 +23,7 @@ use OpenConext\MonitorBundle\Value\Information;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Display specific information about the application.
@@ -65,6 +66,8 @@ class InfoController extends AbstractController
         }
     }
 
+    #[Route('/info', name: 'monitor.info', methods: ['GET'])]
+    #[Route('/internal/info', name: 'monitor.internal_info', methods: ['GET'])]
     public function __invoke(): JsonResponse
     {
         $buildInformation = BuildInformationFactory::build(
