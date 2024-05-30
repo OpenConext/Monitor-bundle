@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 /**
  * Contract for a HealthCheck.
  */
-#[AutoconfigureTag()]
+#[AutoconfigureTag('surfnet.monitor.health_check')]
 interface HealthCheckInterface
 {
     public function check(HealthReportInterface $report): HealthReportInterface;

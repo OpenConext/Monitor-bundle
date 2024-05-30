@@ -27,7 +27,7 @@ use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 class HealthCheckChain
 {
     public function __construct(
-        #[AutowireIterator(HealthCheckInterface::class)]
+        #[AutowireIterator(tag: 'surfnet.monitor.health_check')]
         private readonly iterable $healthChecks
     ) {
     }
