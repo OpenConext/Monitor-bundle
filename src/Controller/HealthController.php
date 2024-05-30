@@ -21,6 +21,7 @@ namespace OpenConext\MonitorBundle\Controller;
 use OpenConext\MonitorBundle\HealthCheck\HealthCheckChain;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Display the health state of the application.
@@ -35,6 +36,8 @@ class HealthController extends AbstractController
     ) {
     }
 
+    #[Route('/health', name: 'monitor.health', methods: ['GET'])]
+    #[Route('/internal/health', name: 'monitor.internal_health', methods: ['GET'])]
     public function __invoke(): JsonResponse
     {
         $statusResponse = $this->healthChecker->check();

@@ -19,25 +19,17 @@
 namespace OpenConext\MonitorBundle\HealthCheck;
 
 use OpenConext\MonitorBundle\Value\HealthReport;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 /**
  * Collect HealthCheck instances and checks them for UP or DOWN status.
  */
 class HealthCheckChain
 {
-    /**
-     * @var HealthCheckInterface[]
-     */
-    private $checks;
-
-    public function __construct()
-    {
-        $this->checks = [];
-    }
-
-    public function addHealthCheck(HealthCheckInterface $healthCheck)
-    {
-        $this->checks[] = $healthCheck;
+    public function __construct(
+        #[AutowireIterator(tag: 'surfnet.monitor.health_check')]
+        private readonly iterable $healthChecks
+    ) {
     }
 
     /**
@@ -46,8 +38,8 @@ class HealthCheckChain
     public function check(): HealthReportInterface
     {
         $report = HealthReport::buildStatusUp();
-        if (!empty($this->checks)) {
-            foreach ($this->checks as $check) {
+        if (!empty($this->healthChecks)) {
+            foreach ($this->healthChecks as $check) {
                 $report = $check->check($report);
                 if ($report->isDown()) {
                     return $report;

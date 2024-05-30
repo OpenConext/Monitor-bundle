@@ -1,5 +1,4 @@
 open_conext_monitor:
-  resource:   "@OpenConextMonitorBundle/Resources/config/routing.yml"
-  prefix:     /
-
-
+  resource: "@OpenConextMonitorBundle/src/Controller"
+  type: attribute
+  prefix: /

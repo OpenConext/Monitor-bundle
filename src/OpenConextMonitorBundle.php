@@ -18,14 +18,14 @@
 
 namespace OpenConext\MonitorBundle;
 
-use OpenConext\MonitorBundle\DependencyInjection\Compiler\HealthCheckPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
-class OpenConextMonitorBundle extends Bundle
+class OpenConextMonitorBundle extends AbstractBundle
 {
-    public function build(ContainerBuilder $container): void
+    public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        $container->addCompilerPass(new HealthCheckPass());
+        $container->import('../config/services.yaml');
     }
 }

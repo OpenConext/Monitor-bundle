@@ -13,32 +13,29 @@
 >
 
     <php>
-      <ini name="error_reporting" value="-1" />
-      <server name="APP_ENV" value="test" force="true" />
-      <server name="SHELL_VERBOSITY" value="-1" />
-      <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
-      <server name="SYMFONY_PHPUNIT_VERSION" value="9" />
-
-      <server name="KERNEL_CLASS" value="App\Tests\App\AppKernel"/>
-      <server name="KERNEL_DIR" value="./Tests/App"/>
-      <ini name="zend.enable_gc" value="0"/>
+        <ini name="error_reporting" value="-1"/>
+        <server name="APP_ENV" value="test" force="true"/>
+        <server name="SHELL_VERBOSITY" value="-1"/>
+        <server name="SYMFONY_PHPUNIT_REMOVE" value=""/>
+        <server name="SYMFONY_PHPUNIT_VERSION" value="9"/>
+        <ini name="zend.enable_gc" value="0"/>
     </php>
 
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory suffix=".php">src</directory>
-    </include>
-    <exclude>
-      <directory>.github</directory>
-      <directory>src/Tests</directory>
-    </exclude>
-  </coverage>
-  <testsuites>
-    <testsuite name="Test Suite">
-      <directory>src/Tests</directory>
-    </testsuite>
-  </testsuites>
-  <listeners>
-    <listener class="\Mockery\Adapter\Phpunit\TestListener"/>
-  </listeners>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <exclude>
+            <directory>.github</directory>
+            <directory>tests</directory>
+        </exclude>
+    </coverage>
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <listeners>
+        <listener class="\Mockery\Adapter\Phpunit\TestListener"/>
+    </listeners>
 </phpunit>

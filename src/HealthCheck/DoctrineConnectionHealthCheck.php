@@ -18,9 +18,10 @@
 
 namespace OpenConext\MonitorBundle\HealthCheck;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\DBAL\Connection;
 use Exception;
 use OpenConext\MonitorBundle\Value\HealthReport;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Test if there is a working database connection.
@@ -30,34 +31,27 @@ use OpenConext\MonitorBundle\Value\HealthReport;
  */
 class DoctrineConnectionHealthCheck implements HealthCheckInterface
 {
-    /**
-     * @var EntityManager|null
-     */
-    private $entityManager;
 
-    /**
-     * @param EntityManager $entityManager
-     */
-    public function setEntityManager(EntityManager $entityManager)
-    {
-        $this->entityManager = $entityManager;
+    public function __construct(
+        #[Autowire(service: 'doctrine.dbal.default_connection')]
+        private readonly ?Connection $connection
+    ) {
     }
 
     public function check(HealthReportInterface $report): HealthReportInterface
     {
-        // Was the entityManager injected? When it is not the project does not use Doctrine ORM
-        if (!is_null($this->entityManager)) {
+        if (!is_null($this->connection)) {
             try {
                 // Get the schema manager and grab the first table to later query on
-                $sm = $this->entityManager->getConnection()->createSchemaManager();
+                $sm = $this->connection->createSchemaManager();
                 $tables = $sm->listTables();
                 if (!empty($tables)) {
                     $table = reset($tables);
                     // Perform a light-weight query on the chosen table
-                    $query = 'SELECT * FROM `%s` LIMIT 1';
-                    $this->entityManager->getConnection()->executeQuery(sprintf($query, $table->getName()));
+                    $query = "SELECT * FROM %s LIMIT 1";
+                    $this->connection->executeQuery(sprintf($query, $table->getName()));
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return HealthReport::buildStatusDown('Unable to execute a query on the database.');
             }
         }
