@@ -22,7 +22,7 @@ When a health check failed the HTTP Response status code will be 503. And the JS
 
 :exclamation: Please note that only the first failing health check is reported.
 
-:exclamation: As of version 3.1.0 we started exposing the `health` and `info` routes on `/internal/`. On the next major version we will stop serving the `info` and `health` enpoints on `/`
+:exclamation: As of version 3.1.0 we started exposing the `health` and `info` routes on `/internal/`. On the next major version we will stop serving the `info` and `health` endpoints on `/`
 
 
 ## Installation
