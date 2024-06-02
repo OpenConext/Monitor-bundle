@@ -19,6 +19,7 @@
 namespace OpenConext\MonitorBundle\HealthCheck;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception\ConnectionException;
 use Exception;
 use OpenConext\MonitorBundle\Value\HealthReport;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -42,15 +43,23 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
     {
         if (!is_null($this->connection)) {
             try {
+                $this->connection->connect(); // This will create the SQLite database if it does not exist
                 // Get the schema manager and grab the first table to later query on
                 $sm = $this->connection->createSchemaManager();
+
                 $tables = $sm->listTables();
-                if (!empty($tables)) {
-                    $table = reset($tables);
-                    // Perform a light-weight query on the chosen table
-                    $query = "SELECT * FROM %s LIMIT 1";
-                    $this->connection->executeQuery(sprintf($query, $table->getName()));
+
+                if ($tables === []) {
+                    return HealthReport::buildStatusDown('No tables found in the database.');
                 }
+
+                $table = reset($tables);
+                // Perform a light-weight query on the chosen table
+                $query = "SELECT * FROM %s LIMIT 1";
+                $this->connection->executeQuery(sprintf($query, $table->getName()));
+
+            } catch (ConnectionException) {
+                return HealthReport::buildStatusDown('Unable to connect to the database.');
             } catch (Exception) {
                 return HealthReport::buildStatusDown('Unable to execute a query on the database.');
             }
