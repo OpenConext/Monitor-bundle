@@ -48,6 +48,8 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
         }
 
         try {
+            // This will try to make a connection. It throws an exception if it fails on MySQL and Postgres.
+            // In the case of SQLite it will create an empty database, so we need to check for empty tables later on.
             $this->connection->connect(); // This will create the SQLite database if it does not exist
             // Get the schema manager
             $sm = $this->connection->createSchemaManager();
