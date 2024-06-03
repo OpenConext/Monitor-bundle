@@ -35,35 +35,41 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
 
     public function __construct(
         #[Autowire(service: 'doctrine.dbal.default_connection')]
-        private readonly ?Connection $connection
-    ) {
+        private readonly ?Connection $connection,
+    )
+    {
     }
 
     public function check(HealthReportInterface $report): HealthReportInterface
     {
-        if (!is_null($this->connection)) {
-            try {
-                $this->connection->connect(); // This will create the SQLite database if it does not exist
-                // Get the schema manager and grab the first table to later query on
-                $sm = $this->connection->createSchemaManager();
-
-                $tables = $sm->listTables();
-
-                if ($tables === []) {
-                    return HealthReport::buildStatusDown('No tables found in the database.');
-                }
-
-                $table = reset($tables);
-                // Perform a light-weight query on the chosen table
-                $query = "SELECT * FROM %s LIMIT 1";
-                $this->connection->executeQuery(sprintf($query, $table->getName()));
-
-            } catch (ConnectionException) {
-                return HealthReport::buildStatusDown('Unable to connect to the database.');
-            } catch (Exception) {
-                return HealthReport::buildStatusDown('Unable to execute a query on the database.');
-            }
+        // Skip database checking of no database is configured.
+        if ($this->connection === null) {
+            return $report;
         }
+
+        try {
+            $this->connection->connect(); // This will create the SQLite database if it does not exist
+            // Get the schema manager
+            $sm = $this->connection->createSchemaManager();
+
+            $tables = $sm->listTables();
+
+            if ($tables === []) {
+                return HealthReport::buildStatusDown('No tables found in the database.');
+            }
+
+            // Grab the first table to query on
+            $table = reset($tables);
+            // Perform a light-weight query on the chosen table
+            $query = "SELECT * FROM %s LIMIT 1";
+            $this->connection->executeQuery(sprintf($query, $table->getName()));
+
+        } catch (ConnectionException) {
+            return HealthReport::buildStatusDown('Unable to connect to the database.');
+        } catch (Exception) {
+            return HealthReport::buildStatusDown('Unable to execute a query on the database.');
+        }
+
         return $report;
     }
 }
