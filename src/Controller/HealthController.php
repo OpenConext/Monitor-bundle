@@ -23,6 +23,7 @@ use OpenConext\MonitorBundle\Value\HealthReport;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
+use Throwable;
 
 /**
  * Display the health state of the application.
@@ -43,7 +44,7 @@ class HealthController extends AbstractController
     {
         try {
             $statusResponse = $this->healthChecker->check();
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             $statusResponse = HealthReport::buildStatusDown($exception->getMessage());
         }
         return $this->json($statusResponse, $statusResponse->getStatusCode());
