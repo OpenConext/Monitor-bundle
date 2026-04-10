@@ -20,6 +20,7 @@ namespace OpenConext\MonitorBundle\Controller;
 
 use OpenConext\MonitorBundle\HealthCheck\HealthCheckChain;
 use OpenConext\MonitorBundle\Value\HealthReport;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
@@ -34,7 +35,8 @@ use Throwable;
 class HealthController extends AbstractController
 {
     public function __construct(
-        private readonly HealthCheckChain $healthChecker
+        private readonly HealthCheckChain $healthChecker,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -45,6 +47,7 @@ class HealthController extends AbstractController
         try {
             $statusResponse = $this->healthChecker->check();
         } catch (Throwable $exception) {
+            $this->logger->error('An unexpected error occurred during health checking.', ['exception' => $exception]);
             $statusResponse = HealthReport::buildStatusDown($exception->getMessage());
         }
         return $this->json($statusResponse, $statusResponse->getStatusCode());

@@ -22,6 +22,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\ConnectionException;
 use Exception;
 use OpenConext\MonitorBundle\Value\HealthReport;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
@@ -36,8 +37,8 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
     public function __construct(
         #[Autowire(service: 'doctrine.dbal.default_connection')]
         private readonly ?Connection $connection,
-    )
-    {
+        private readonly LoggerInterface $logger,
+    ) {
     }
 
     public function check(HealthReportInterface $report): HealthReportInterface
@@ -66,9 +67,11 @@ class DoctrineConnectionHealthCheck implements HealthCheckInterface
             $query = "SELECT * FROM %s LIMIT 1";
             $this->connection->executeQuery(sprintf($query, $table->getName()));
 
-        } catch (ConnectionException) {
+        } catch (ConnectionException $exception) {
+            $this->logger->error('Unable to connect to the database.', ['exception' => $exception]);
             return HealthReport::buildStatusDown('Unable to connect to the database.');
-        } catch (Exception) {
+        } catch (Exception $exception) {
+            $this->logger->error('Unable to execute a query on the database.', ['exception' => $exception]);
             return HealthReport::buildStatusDown('Unable to execute a query on the database.');
         }
 
