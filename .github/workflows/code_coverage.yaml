@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.2
+          php-version: 8.5
           coverage: pcov
 
       # Implicitly runs `composer tests` in post update cmd. So PHPCS, MD and other static analysis is executed at

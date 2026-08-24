@@ -18,7 +18,7 @@ jobs:
         uses: shivammathur/setup-php@2.22.0
         with:
           coverage: none
-          php-version: '8.2'
+          php-version: '8.5'
           tools: composer:v2
           extensions: mbstring
           ini-values: date.timezone=UTC
