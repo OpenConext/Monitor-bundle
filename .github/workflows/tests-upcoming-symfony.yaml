@@ -31,8 +31,8 @@ jobs:
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
           composer config minimum-stability dev
           composer config prefer-stable false
-          composer update --no-interaction --optimize-autoloader
-          composer require symfony/phpunit-bridge
+          composer update --no-interaction --optimize-autoloader --no-scripts
+          composer require --no-scripts symfony/phpunit-bridge
 
       - name: 'Run tests'
         env:
