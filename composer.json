@@ -39,7 +39,7 @@
       "phpcs": "vendor/bin/phpcs src tests --report=full --standard=phpcs.xml --extensions=php --warning-severity=0",
       "phpcpd": "vendor/bin/phpcpd src",
       "phpunit": "vendor/bin/phpunit --coverage-text",
-      "phpmd": "vendor/bin/phpmd src text phpmd.xml"
+      "phpmd": "@php -d \"error_reporting=E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" vendor/bin/phpmd src text phpmd.xml"
     },
     "rector": "vendor/bin/rector process --dry-run",
     "rector-fix": "vendor/bin/rector process",

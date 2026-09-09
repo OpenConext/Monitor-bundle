@@ -11,5 +11,4 @@ return RectorConfig::configure()
     ->withAttributesSets(doctrine: true, symfony: true, phpunit: true)
     ->withSkip([
         \Rector\Php84\Rector\MethodCall\NewMethodCallWithoutParenthesesRector::class,
-        \Rector\Php84\Rector\Class_\DeprecatedAnnotationToDeprecatedAttributeRector::class,
     ]);
