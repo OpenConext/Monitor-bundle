@@ -42,7 +42,7 @@ class SessionHealthCheck implements HealthCheckInterface
         if ($sessionStatus !== PHP_SESSION_DISABLED && $sessionStatus === PHP_SESSION_NONE) {
             try {
                 session_start();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return HealthReport::buildStatusDown('Session support is enabled but no session could be started.');
             }
             // Destroy the session

@@ -1,4 +1,8 @@
 # Changelog
+# Unreleased
+- Raise the Composer platform to PHP 8.5.
+- Update the code checks, code coverage and upcoming Symfony workflows to run on PHP 8.5.
+
 # 4.0.0
 - Drop SF4 support, Allow SF7.
 - Raise minimum PHP requirement to 8.2

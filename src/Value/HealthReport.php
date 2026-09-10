@@ -26,21 +26,6 @@ use OpenConext\MonitorBundle\HealthCheck\HealthReportInterface;
  */
 class HealthReport implements HealthReportInterface, JsonSerializable
 {
-    /**
-     * @var string
-     */
-    private $status;
-
-    /**
-     * @var int
-     */
-    private $code;
-
-    /**
-     * @var string
-     */
-    private $message = '';
-
     public static function buildStatusUp(): HealthReportInterface
     {
         return new self(HealthReportInterface::STATUS_UP, HealthReportInterface::STATUS_CODE_UP);
@@ -51,11 +36,11 @@ class HealthReport implements HealthReportInterface, JsonSerializable
         return new self(HealthReportInterface::STATUS_DOWN, HealthReportInterface::STATUS_CODE_DOWN, $message);
     }
 
-    private function __construct(string $status, $code, string $message = '')
+    /**
+     * @param int $code
+     */
+    private function __construct(private readonly string $status, private $code, private readonly string $message = '')
     {
-        $this->status = $status;
-        $this->code = $code;
-        $this->message = $message;
     }
 
     public function isDown(): bool
