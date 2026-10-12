@@ -11,7 +11,7 @@
     "endroid/installer": "^1.4",
     "symfony/dependency-injection": "^6.3|^7.0",
     "symfony/framework-bundle": "^6.3|^7.0",
-    "webmozart/assert": "^1.10"
+    "webmozart/assert": "^1.10|^2.0"
   },
   "require-dev": {
     "php-parallel-lint/php-parallel-lint": "^1.3",
